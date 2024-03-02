@@ -9,35 +9,22 @@ import { useEffect, useState } from "react";
 import { BrowserProvider } from "ethers";
 import { getContract } from "../config";
 import backgroundImg from "../public/habg.jpg";
-import Image from "next/image";
 
 export default function Home() {
   const [walletKey, setwalletKey] = useState("");
 
-  
-
   const [mintingAmount, setMintingAmount] = useState<number>(0);
-  const [mintSubmitted, setMintSubmitted] = useState(false);
-  const [mintError, setMintError] = useState<string>("");
-
-  const [balance, setBalance] = useState<number>(0);
-  const [balanceLoading, setBalanceLoading] = useState(false);
+  const [, setMintSubmitted] = useState(false);
+  const [, setMintError] = useState<string>("");
 
   const [stakingAmount, setStakingAmount] = useState<number>(0);
-  const [stakeSubmitted, setStakeSubmitted] = useState(false);
-  const [stakeError, setStakeError] = useState<string>("");
-
-  const [stakedAmount, setStakedAmount] = useState<number>(0);
-  const [stakedAmountLoading, setStakedAmountLoading] = useState(false);
-
-  const [withdrawAmount, setWithdrawAmount] = useState<number>(0);
-  const [withdrawSubmitted, setWithdrawSubmitted] = useState(false);
-  const [withdrawError, setWithdrawError] = useState<string>("");
-
-  const [showCoins, setShowCoins] = useState<boolean>(false);
+  const [, setStakeSubmitted] = useState(false);
+   const [, setWithdrawSubmitted] = useState(false);
 
 
-  const mintCoin = async () => {
+  const [, setShowCoins] = useState<boolean>(false);
+
+    const mintCoin = async () => {
     const { ethereum } = window as any;
     const provider = new BrowserProvider(ethereum);
     const signer = await provider.getSigner();
@@ -56,15 +43,7 @@ export default function Home() {
     }
   };
 
-  const mintAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-    if (!isNaN(Number(inputValue))) {
-      setMintingAmount(Number(inputValue));
-      console.log(inputValue);
-    } else {
-      setMintingAmount(0);
-    }
-  };
+  
 
   const stakeCoin = async () => {
     const { ethereum } = window as any;
@@ -81,16 +60,7 @@ export default function Home() {
     }
   };
 
-  const stakeAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-    if (!isNaN(Number(inputValue))) {
-      setStakingAmount(Number(inputValue));
-      console.log(inputValue);
-    } else {
-      setStakingAmount(0);
-    }
-  };
-
+  
   const withdrawCoin = async () => {
     const { ethereum } = window as any;
     const provider = new BrowserProvider(ethereum);
@@ -143,101 +113,16 @@ export default function Home() {
       ],
     });
   };
-  useEffect(() => {
-    const fetchBalance = async () => {
-      const { ethereum } = window as any;
-      const provider = new BrowserProvider(ethereum);
-      const signer = await provider.getSigner();
-      const contract = getContract(signer);
-      setBalanceLoading(true);
 
-      try {
-        const balance = await contract.balanceOf(signer.getAddress());
-        setBalance(Number(balance));
-      } catch (e: any) {
-        console.error("Failed to fetch balance", e);
-      }
-      setBalanceLoading(false);
-    };
-
-    fetchBalance();
-  }, []);
-
-  useEffect(() => {
-    const fetchMintedCoins = async () => {
-      if (walletKey) {
-        const provider = new BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
-        const contract = getContract(signer);
-        // const mintedCoins = await contract.currentUserMintedCoins(walletKey);
-        // setMintedCoins(mintedCoins.toNumber());
-      }
-    };
-  
-    fetchMintedCoins();
-  }, [walletKey]);
-
-  useEffect(() => {
-    const fetchStakedCoins = async () => {
-      if (walletKey) {
-        const provider = new BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
-        const contract = getContract(signer);
-        // const stakedCoins = await contract.currentUserStakedCoins(walletKey);
-        // setStakedCoins(stakedCoins.toNumber());
-      }
-    };
-  
-    fetchStakedCoins();
-  }, [walletKey]);
-
-
-
-  useEffect(() => {
-    const fetchStakedAmount = async () => {
-      const { ethereum } = window as any;
-      const provider = new BrowserProvider(ethereum);
-      const signer = await provider.getSigner();
-      const contract = getContract(signer);
-      setStakedAmountLoading(true);
-
-      try {
-        const stakedAmount = await contract.stakedAmount(signer.getAddress());
-        setStakedAmount(Number(stakedAmount));
-      } catch (e: any) {
-        console.error("Failed to fetch staked amount", e);
-      }
-      setStakedAmountLoading(false);
-    };
-
-    fetchStakedAmount();
-  }, []);
-
-
-  return (
+   return (
     <main
       className="flex min-h-screen flex-col items-center justify-between p-8 bg-custom-yellow"
       style={{ backgroundImage: `url("${backgroundImg.src}")` }}
     >
 
 
-<div className="flex flex-col items-center justify-between p-8 bg-custom-yellow" style={{ backgroundImage: `url("${backgroundImg.src}")` }}>
-
-
-{/* {showCoins && (
-  <div className="absolute top-0 left-0 m-4">
-    <div className="text-lg font-semibold mb-2">Your Minted Coins:</div>
-    <div className="text-lg font-semibold mb-2">{mintedCoins}</div>
-    <div className="text-lg font-semibold mb-2">Your Staked Coins:</div>
-    <div className="text-lg font-semibold mb-2">{stakedCoins}</div>
-  </div>
-)} */}
-
-
-<div className="flex flex-col items-center justify-between p-8 bg-custom-yellow" style={{ backgroundImage: `url("${backgroundImg.src}")` }}>
-  {/* rest of the component */}
-</div>
-</div>
+      <div className="flex flex-col items-center justify-between p-8 bg-custom-yellow" style={{ backgroundImage: `url("${backgroundImg.src}")` }}>
+      </div>
 
       <div className="fixed bottom-0 right-0 mb-4 mr-4">
         <audio controls autoPlay loop hidden>
