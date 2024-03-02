@@ -9,8 +9,17 @@ import { useEffect, useState } from "react";
 import { BrowserProvider } from "ethers";
 import { getContract } from "../config";
 import backgroundImg from "../public/habg.jpg";
+import React from "react";
+import { Helmet } from 'react-helmet';
+
+  
 
 export default function Home() {
+
+  useEffect(() => {
+    document.title = "Hev Abi na nga";
+  }, []);
+
   const [walletKey, setwalletKey] = useState("");
 
   const [mintingAmount, setMintingAmount] = useState<number>(0);
@@ -114,6 +123,9 @@ export default function Home() {
     });
   };
 
+  const faviconPath = '/favicon.ico';
+  
+
    return (
     <main
       className="flex min-h-screen flex-col items-center justify-between p-8 bg-custom-yellow"
@@ -121,7 +133,7 @@ export default function Home() {
     >
 
 
-      <div className="flex flex-col items-center justify-between p-8 bg-custom-yellow" style={{ backgroundImage: `url("${backgroundImg.src}")` }}>
+      <div className="flex flex-col items-center justify-between p-8 bg-custom-black" style={{ backgroundImage: `url("${backgroundImg.src}")` }}>
       </div>
 
       <div className="fixed bottom-0 right-0 mb-4 mr-4">
@@ -129,6 +141,14 @@ export default function Home() {
           <source src="/welcome.mp3" type="audio/mpeg" />
         </audio>
       </div>
+
+      <div>
+      <Helmet>
+        <link rel="icon" href={faviconPath} />
+      </Helmet>
+      
+    </div>
+
 
       <div className="w-96">
         <div className="bg-blue p-6 rounded-lg shadow-lg">
@@ -139,7 +159,7 @@ export default function Home() {
               onClick={() => {
                 connectWallet();
               }}
-              className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mt-2 w-full"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2 w-full"
             >
               {walletKey ? `Connected: ${walletKey.substring(0, 6)}...${walletKey.substring(38)}` : "Connect Wallet"}
             </button>
@@ -165,7 +185,7 @@ export default function Home() {
               onClick={() => {
                 mintCoin();
               }}
-              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2"
+              className="w-full bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded mt-2"
             >
               Mint $HAVI
             </button>
@@ -191,7 +211,7 @@ export default function Home() {
               onClick={() => {
                 stakeCoin();
               }}
-              className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2"
+              className="w-full bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded mt-2"
             >
               Stake $HAVI
             </button>
@@ -203,7 +223,7 @@ export default function Home() {
               onClick={() => {
                 withdrawCoin();
               }}
-              className="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2"
+              className="w-full bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded mt-2"
             >
               Withdraw $HAVI
             </button>
